@@ -5,6 +5,9 @@ results*
 */datasets
 *$datasets
 datasets*
+*$data
+*/data
+data*
 
 # Pycharm
 .idea/
