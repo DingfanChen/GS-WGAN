@@ -107,6 +107,7 @@ def dp_conv_hook(module, grad_input, grad_output):
     grad_input = (grad_wrt_image.view(grad_input_shape), grad_input[1], grad_input[2])
     return tuple(grad_input)
 
+
 ##########################################################
 ### main
 ##########################################################
@@ -127,10 +128,12 @@ def main(args):
     save_dir = args.save_dir
     if_dp = (noise_multiplier > 0.)
     gen_arch = args.gen_arch
+    num_gpus = args.num_gpus
 
     ### CUDA
     use_cuda = torch.cuda.is_available()
-    device = torch.device("cuda:0" if use_cuda else "cpu")
+    devices = [torch.device("cuda:%d" % i if use_cuda else "cpu") for i in range(num_gpus)]
+    device0 = devices[0]
     if use_cuda:
         torch.set_default_tensor_type('torch.cuda.FloatTensor')
 
@@ -171,8 +174,9 @@ def main(args):
             netD = netD_list[netD_id]
             netD.load_state_dict(torch.load(network_path))
 
-    netG = netG.to(device)
+    netG = netG.to(device0)
     for netD_id, netD in enumerate(netD_list):
+        device = devices[get_device_id(netD_id, num_discriminators, num_gpus)]
         netD.to(device)
 
     ### Set up optimizers
@@ -229,6 +233,7 @@ def main(args):
         ### Update D network
         #########################
         netD_id = np.random.randint(num_discriminators, size=1)[0]
+        device = devices[get_device_id(netD_id, num_discriminators, num_gpus)]
         netD = netD_list[netD_id]
         optimizerD = optimizerD_list[netD_id]
         input_data = input_pipelines[netD_id]
@@ -252,13 +257,13 @@ def main(args):
             ### train with fake
             batchsize = real_data.shape[0]
             if latent_type == 'normal':
-                noise = torch.randn(batchsize, z_dim).to(device)
+                noise = torch.randn(batchsize, z_dim).to(device0)
             elif latent_type == 'bernoulli':
-                noise = bernoulli.sample((batchsize, z_dim)).view(batchsize, z_dim).to(device)
+                noise = bernoulli.sample((batchsize, z_dim)).view(batchsize, z_dim).to(device0)
             else:
                 raise NotImplementedError
             noisev = autograd.Variable(noise)
-            fake = autograd.Variable(netG(noisev, real_y.to(device)).data)
+            fake = autograd.Variable(netG(noisev, real_y.to(device0)).data)
             inputv = fake.to(device)
             D_fake = netD(inputv, real_y.to(device))
             D_fake = D_fake.mean()
@@ -295,12 +300,12 @@ def main(args):
 
         ### train with sanitized discriminator output
         if latent_type == 'normal':
-            noise = torch.randn(batchsize, z_dim).to(device)
+            noise = torch.randn(batchsize, z_dim).to(device0)
         elif latent_type == 'bernoulli':
-            noise = bernoulli.sample((batchsize, z_dim)).view(batchsize, z_dim).to(device)
+            noise = bernoulli.sample((batchsize, z_dim)).view(batchsize, z_dim).to(device0)
         else:
             raise NotImplementedError
-        label = torch.randint(0, NUM_CLASSES, [batchsize]).to(device)
+        label = torch.randint(0, NUM_CLASSES, [batchsize]).to(device0)
         noisev = autograd.Variable(noise)
         fake = netG(noisev, label)
         fake = fake.to(device)
@@ -326,7 +331,7 @@ def main(args):
                                                                 ))
 
         if iter % args.vis_step == 0:
-            generate_image(iter, netGS, fix_noise, save_dir, device, num_classes=10)
+            generate_image(iter, netGS, fix_noise, save_dir, device0, num_classes=10)
 
         if iter % args.save_step == 0:
             ### save model

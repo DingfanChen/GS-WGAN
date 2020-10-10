@@ -25,15 +25,17 @@ def parse_arguments():
     parser.add_argument('--pretrain_iterations', '-piters', type=int, default=2000, help='iterations for pre-training')
     parser.add_argument('--num_workers', '-nwork', type=int, default=0, help='number of workers')
     parser.add_argument('--net_ids', '-ids', type=int, nargs='+', help='the index list for the discriminator')
-    parser.add_argument('--print_step', '-step', type=int, default=100, help='number of steps to print')
+    parser.add_argument('--print_step', '-pstep', type=int, default=100, help='number of steps to print')
     parser.add_argument('--vis_step', '-vstep', type=int, default=1000, help='number of steps to vis & eval')
     parser.add_argument('--save_step', '-sstep', type=int, default=5000, help='number of steps to save')
     parser.add_argument('--load_dir', '-ldir', type=str, help='checkpoint dir (for loading pre-trained models)')
     parser.add_argument('--pretrain', action='store_true', default=False, help='if performing pre-training')
     parser.add_argument('--num_gpus', '-ngpus', type=int, default=1, help='number of gpus')
-    parser.add_argument('--gen_arch', '-gen', type=str, default='ResNet', help='generator architecture')
+    parser.add_argument('--gen_arch', '-gen', type=str, default='ResNet', choices=['DCGAN', 'ResNet'],
+                        help='generator architecture')
     parser.add_argument('--run', '-run', type=int, default=1, help='index number of run')
-    parser.add_argument('--exp_name', '-name', type=str, help='store under this name if specified')
+    parser.add_argument('--exp_name', '-name', type=str,
+                        help='output folder name; will be automatically generated if not specified')
     args = parser.parse_args()
     return args
 

@@ -1,5 +1,6 @@
 import os
 import matplotlib
+
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
@@ -49,3 +50,13 @@ def generate_image(iter, netG, fix_noise, save_dir, device, num_classes=10,
 
     del label, noise, sample
     torch.cuda.empty_cache()
+
+
+def get_device_id(id, num_discriminators, num_gpus):
+    partitions = np.linspace(0, 1, num_gpus, endpoint=False)[1:]
+    device_id = 0
+    for p in partitions:
+        if id <= num_discriminators * p:
+            break
+        device_id += 1
+    return device_id

@@ -2,6 +2,8 @@ import os
 import sys
 import numpy as np
 from autodp import rdp_acct, rdp_bank
+
+sys.path.insert(0, '../source')
 from config import *
 
 
