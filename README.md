@@ -8,6 +8,8 @@ This repository contains the implementation for [GS-WGAN: A Gradient-Sanitized A
 
 Contact: Dingfan Chen ([dingfan.chen@cispa.saarland](mailto:dingfan.chen@cispa.saarland))
 
+Please note that the code is currently under construction and subject to changes.
+
 ## Requirements 
 The environment can be set up using [Anaconda](https://www.anaconda.com/download/) with the following commands:
 
@@ -19,7 +21,7 @@ conda install torchvision -c pytorch
 pip install -r requirements.txt
 ```
 
-## Training
+## Training 
 #### Step 1. To warm-start the discriminators:
 ```warm-start
 cd source
@@ -32,7 +34,7 @@ sh pretrain.sh
 #### Step 2. To train the differentially private generator:
 ```train
 cd source
-python main.py -name 'ResNet_default' -ldir '../results/mnist/pretrain/ResNet_default'
+python main.py -data 'mnist' -name 'ResNet_default' -ldir '../results/mnist/pretrain/ResNet_default'
 ```
 - Please refer to `source/config.py` (or execute `python main.py -h`) for the complete list of arguments. 
 
@@ -49,13 +51,13 @@ python main.py -name 'ResNet_default' -ldir '../results/mnist/pretrain/ResNet_de
 ## Pre-trained Models
 Pre-trained model checkpoints can be downloaded using the links below. The discriminators are obtained after the 
 warm-starting step (step 1), while the generators are obtained after the DP training step (step 2). 
-The model parameters are stored as `.pth` files and the corresponding training configurations are stored in 
+The pre-trained models are stored as `.pth` files and the corresponding training configurations are stored in 
 `params.pkl` and `params.txt`. 
 
 |   |Generator  | Discriminators |  
 |---|---|---|
 |MNIST | [link](https://drive.google.com/drive/folders/19KaZouarxgo7qgH76aNTxYj2OTvqS7lL?usp=sharing) | [link](https://drive.google.com/drive/folders/1gg_pq5BkbexJgfuEzGd4fRCTAaLKVWQK?usp=sharing) | 
-|Fashion-MNIST | [link]() | [link]() | 
+|Fashion-MNIST | [link](https://drive.google.com/drive/folders/1JzGFeFzyIQ_UuOtv3-XF7BjcrUG2I5jR?usp=sharing) | [link](https://drive.google.com/drive/folders/1XoWjS1cbG4Bihg5abOSvlf3r2MbkqPoL?usp=sharing) | 
 
 
 ## Citation
