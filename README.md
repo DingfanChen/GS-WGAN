@@ -8,7 +8,6 @@ This repository contains the implementation for [GS-WGAN: A Gradient-Sanitized A
 
 Contact: Dingfan Chen ([dingfan.chen@cispa.saarland](mailto:dingfan.chen@cispa.saarland))
 
-Please note that the code is currently under construction and subject to changes.
 
 ## Requirements 
 The environment can be set up using [Anaconda](https://www.anaconda.com/download/) with the following commands:
@@ -20,6 +19,8 @@ conda install pytorch=1.2.0
 conda install torchvision -c pytorch
 pip install -r requirements.txt
 ```
+
+Please note that modifications in registering the `backward_hook` (in `source/main.py`) may be required if you plan to use a different pytorch version. Please refer to the [pytorch document](https://pytorch.org/docs/versions.html) (select pytorch version &rarr; `torch.nn` &rarr;  `Module` &rarr; search for `register_backward_hook`) for more information. 
 
 ## Training 
 #### Step 1. To warm-start the discriminators:
