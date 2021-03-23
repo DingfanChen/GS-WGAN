@@ -20,7 +20,7 @@ conda install torchvision -c pytorch
 pip install -r requirements.txt
 ```
 
-Please note that modifications in registering the `backward_hook` (in `source/main.py`) may be required if you plan to use a different pytorch version. Please refer to the [pytorch document](https://pytorch.org/docs/versions.html) (select pytorch version &rarr; `torch.nn` &rarr;  `Module` &rarr; search for `register_backward_hook`) for more information. 
+<!---Please note that modifications in registering the `backward_hook` (in `source/main.py`) may be required if you plan to use a different pytorch version. Please refer to the [pytorch document](https://pytorch.org/docs/versions.html) (select pytorch version &rarr; `torch.nn` &rarr;  `Module` &rarr; search for `register_backward_hook`) for more information.---> 
 
 ## Training 
 #### Step 1. To warm-start the discriminators:

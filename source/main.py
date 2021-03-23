@@ -72,8 +72,10 @@ def modify_gradnorm_conv_hook(module, grad_input, grad_output):
     clip_coef = clip_bound_ / (grad_input_norm + 1e-10)
     clip_coef = clip_coef.unsqueeze(-1)
     grad_wrt_image = clip_coef * grad_wrt_image
-    grad_input = (grad_wrt_image.view(grad_input_shape), grad_input[1], grad_input[2])
-    return tuple(grad_input)
+    grad_input_new = [grad_wrt_image.view(grad_input_shape)]
+    for i in range(len(grad_input)-1):
+        grad_input_new.append(grad_input[i+1])
+    return tuple(grad_input_new)
 
 
 def dp_conv_hook(module, grad_input, grad_output):
@@ -104,8 +106,10 @@ def dp_conv_hook(module, grad_input, grad_output):
     ### add noise
     noise = clip_bound_ * noise_multiplier * SENSITIVITY * torch.randn_like(grad_wrt_image)
     grad_wrt_image = grad_wrt_image + noise
-    grad_input = (grad_wrt_image.view(grad_input_shape), grad_input[1], grad_input[2])
-    return tuple(grad_input)
+    grad_input_new = [grad_wrt_image.view(grad_input_shape)]
+    for i in range(len(grad_input)-1):
+        grad_input_new.append(grad_input[i+1])
+    return tuple(grad_input_new)
 
 
 ##########################################################
