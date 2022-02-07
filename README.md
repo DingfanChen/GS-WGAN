@@ -63,7 +63,7 @@ The pre-trained models are stored as `.pth` files and the corresponding training
 
 ## Citation
 ```bibtex
-@inproceedings{neurips20chen,
+@inproceedings{chen20gswgan,
 title = {GS-WGAN: A Gradient-Sanitized Approach for Learning Differentially Private Generators},
 author = {Dingfan Chen and Tribhuvanesh Orekondy and Mario Fritz},
 year = {2020},
