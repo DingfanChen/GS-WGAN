@@ -10,5 +10,5 @@ for i in $(seq 0 $njobs); do
   start=$((i * dis_per_job + meta_start))
   end=$((start + dis_per_job - 1))
   vals=$(seq $start $end)
-  python pretrain.py -data 'mnist' -ids $vals --pretrain -gen 'ResNet' -name 'ResNet_default' -noise 0. -ndis $ndis
+  python pretrain.py -data 'fashionmnist' -ids $vals --pretrain -gen 'ResNet' -name 'ResNet_default' -noise 0. -ndis $ndis
 done

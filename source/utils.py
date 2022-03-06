@@ -5,6 +5,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
+import copy
 
 
 def mkdir(dir):
@@ -50,6 +51,34 @@ def generate_image(iter, netG, fix_noise, save_dir, device, num_classes=10,
 
     del label, noise, sample
     torch.cuda.empty_cache()
+
+
+def save_gen_data(path, netG, z_dim, device, latent_type='bernoulli', img_w=28, img_h=28, img_c=1, num_classes=10,
+                  num_samples_per_class=6000):
+    netG.eval()
+    netG.to(device)
+    bs = 100
+    data_x = []
+    data_y = []
+    with torch.no_grad():
+        p = 0.5
+        bernoulli = torch.distributions.Bernoulli(torch.tensor([p]))
+        for i in range(num_samples_per_class // (bs // num_classes)):
+            label = torch.arange(num_classes).repeat(bs // num_classes).to(device)
+            if latent_type == 'bernoulli':
+                noise = bernoulli.sample((bs, z_dim)).view(bs, z_dim).to(device)
+            elif latent_type == 'normal':
+                noise = torch.randn(bs, z_dim).to(device)
+            else:
+                raise NotImplementedError
+            samples = netG(noise, label)
+            samples = samples.view(bs, img_c, img_h, img_w).cpu()
+            data_x.append(copy.deepcopy(samples.cpu()))
+            data_y.append(copy.deepcopy(label.cpu()))
+    data_x = np.concatenate(data_x)
+    data_x = np.transpose(data_x, [0, 2, 3, 1])
+    data_y = np.concatenate(data_y)
+    np.savez_compressed(path, data_x=data_x, data_y=data_y)
 
 
 def get_device_id(id, num_discriminators, num_gpus):

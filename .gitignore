@@ -16,6 +16,8 @@ data*
 __pycache__/
 *.py[cod]
 *$py.class
+._*
+.DS_Store
 
 # C extensions
 *.so

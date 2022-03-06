@@ -22,6 +22,7 @@ CLIP_BOUND = 1.
 SENSITIVITY = 2.
 DATA_ROOT = './../data'
 
+
 ##########################################################
 ### hook functions
 ##########################################################
@@ -73,8 +74,8 @@ def modify_gradnorm_conv_hook(module, grad_input, grad_output):
     clip_coef = clip_coef.unsqueeze(-1)
     grad_wrt_image = clip_coef * grad_wrt_image
     grad_input_new = [grad_wrt_image.view(grad_input_shape)]
-    for i in range(len(grad_input)-1):
-        grad_input_new.append(grad_input[i+1])
+    for i in range(len(grad_input) - 1):
+        grad_input_new.append(grad_input[i + 1])
     return tuple(grad_input_new)
 
 
@@ -107,8 +108,8 @@ def dp_conv_hook(module, grad_input, grad_output):
     noise = clip_bound_ * noise_multiplier * SENSITIVITY * torch.randn_like(grad_wrt_image)
     grad_wrt_image = grad_wrt_image + noise
     grad_input_new = [grad_wrt_image.view(grad_input_shape)]
-    for i in range(len(grad_input)-1):
-        grad_input_new.append(grad_input[i+1])
+    for i in range(len(grad_input) - 1):
+        grad_input_new.append(grad_input[i + 1])
     return tuple(grad_input_new)
 
 
@@ -231,7 +232,6 @@ def main(args):
     for netD in netD_list:
         netD.conv1.register_backward_hook(master_hook_adder)
 
-
     for iter in range(args.iterations + 1):
         #########################
         ### Update D network
@@ -347,6 +347,9 @@ def main(args):
     ### save model
     torch.save(netG.state_dict(), os.path.join(save_dir, 'netG.pth'))
     torch.save(netGS.state_dict(), os.path.join(save_dir, 'netGS.pth'))
+
+    ### save generate samples
+    save_gen_data(os.path.join(save_dir, 'gen_data.npz'), netGS, z_dim, device0, latent_type=latent_type)
 
 
 if __name__ == '__main__':
