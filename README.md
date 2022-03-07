@@ -6,7 +6,7 @@
 
 This repository contains the implementation for [GS-WGAN: A Gradient-Sanitized Approach for Learning Differentially Private Generators (NeurIPS 2020)](https://arxiv.org/abs/2006.08265).
 
-Contact: Dingfan Chen ([dingfan.chen@cispa.saarland](mailto:dingfan.chen@cispa.saarland))
+Contact: Dingfan Chen ([dingfan.chen@cispa.de](mailto:dingfan.chen@cispa.de))
 
 
 ## Requirements 
@@ -69,7 +69,7 @@ The pre-trained models are stored as `.pth` files and the corresponding training
 
 ## Citation
 ```bibtex
-@inproceedings{neurips20chen,
+@inproceedings{chen20gswgan,
 title = {GS-WGAN: A Gradient-Sanitized Approach for Learning Differentially Private Generators},
 author = {Dingfan Chen and Tribhuvanesh Orekondy and Mario Fritz},
 year = {2020},
