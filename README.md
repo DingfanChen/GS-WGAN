@@ -49,6 +49,12 @@ python main.py -data 'mnist' -name 'ResNet_default' -ldir '../results/mnist/pret
     python privacy_analysis.py -data 'mnist' -name 'ResNet_default'
     ```
 
+- To evaluate downstream sklearn classifiers:
+    ```sklearn
+    cd evaluation
+    python eval_sklearn.py --gen_data './../results/mnist/main/ResNet_default/gen_data.npz' -data 'mnist' -name 'ResNet_default'
+    ``` 
+
 ## Pre-trained Models
 Pre-trained model checkpoints can be downloaded using the links below. The discriminators are obtained after the 
 warm-starting step (step 1), while the generators are obtained after the DP training step (step 2). 
