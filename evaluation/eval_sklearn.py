@@ -94,11 +94,11 @@ def main(args):
 
     ### load real data
     if dataset == 'mnist':
-        train_data = datasets.MNIST(os.path.join(DATA_ROOT, 'MNIST'), download=True, train=True)
-        test_data = datasets.MNIST(os.path.join(DATA_ROOT, 'MNIST'), train=False)
+        train_data = datasets.MNIST(DATA_ROOT, download=True, train=True)
+        test_data = datasets.MNIST(DATA_ROOT, train=False)
     elif dataset == 'fashionmnist':
-        train_data = datasets.FashionMNIST(os.path.join(DATA_ROOT, 'FashionMNIST'), download=True, train=True)
-        test_data = datasets.FashionMNIST(os.path.join(DATA_ROOT, 'FashionMNIST'), train=False)
+        train_data = datasets.FashionMNIST(DATA_ROOT, download=True, train=True)
+        test_data = datasets.FashionMNIST(DATA_ROOT, train=False)
     else:
         raise ValueError
 

@@ -103,12 +103,13 @@ def main():
 
     ### Load data
     if args.dataset == 'mnist':
-        trainset = datasets.MNIST(os.path.join(DATA_ROOT, 'MNIST'), transform=transform_train, train=True)
-        testset = datasets.MNIST(os.path.join(DATA_ROOT, 'MNIST'), transform=transform_test, train=False)
+        trainset = datasets.MNIST(DATA_ROOT, download=True, transform=transform_train,
+                                  train=True)
+        testset = datasets.MNIST(DATA_ROOT, transform=transform_test, train=False)
     elif args.dataset == 'fashionmnist':
-        trainset = datasets.FashionMNIST(os.path.join(DATA_ROOT, 'FashionMNIST'),
+        trainset = datasets.FashionMNIST(DATA_ROOT, download=True,
                                          transform=transform_train, train=True)
-        testset = datasets.FashionMNIST(os.path.join(DATA_ROOT, 'FashionMNIST'),
+        testset = datasets.FashionMNIST(DATA_ROOT,
                                         transform=transform_test, train=False)
 
     num_classes = 10

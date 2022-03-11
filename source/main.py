@@ -196,11 +196,11 @@ def main(args):
     transform_train = transforms.ToTensor()
     if dataset == 'mnist':
         dataloader = datasets.MNIST
-        trainset = dataloader(root=os.path.join(DATA_ROOT, 'MNIST'), train=True, download=True,
+        trainset = dataloader(root=DATA_ROOT, train=True, download=True,
                               transform=transform_train)
     elif dataset == 'fashionmnist':
         dataloader = datasets.FashionMNIST
-        trainset = dataloader(root=os.path.join(DATA_ROOT, 'FashionMNIST'), train=True, download=True,
+        trainset = dataloader(root=DATA_ROOT, train=True, download=True,
                               transform=transform_train)
     else:
         raise NotImplementedError

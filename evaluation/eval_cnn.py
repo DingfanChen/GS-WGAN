@@ -102,9 +102,9 @@ def main():
     ])
     normalize = transforms.Normalize((0.1307,), (0.3081,))
     if dataset == 'mnist':
-        testset = datasets.MNIST(os.path.join(DATA_ROOT, 'MNIST'), transform=transform, train=False)
+        testset = datasets.MNIST(DATA_ROOT, download=True, transform=transform, train=False)
     elif dataset == 'fashionmnist':
-        testset = datasets.FashionMNIST(os.path.join(DATA_ROOT, 'FashionMNIST'), transform=transform, train=False)
+        testset = datasets.FashionMNIST(DATA_ROOT, download=True, transform=transform, train=False)
     else:
         raise ValueError
     testloader = data.DataLoader(testset, batch_size=args.test_batchsize, shuffle=False, num_workers=args.num_workers)

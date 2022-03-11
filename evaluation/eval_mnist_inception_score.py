@@ -48,9 +48,9 @@ def load_realdata(dataset, batch_size=100):
         transforms.Normalize((0.1307,), (0.3081,)),
     ])
     if dataset == 'mnist':
-        testset = datasets.MNIST(os.path.join(DATA_ROOT, 'MNIST'), transform=transform, train=False)
+        testset = datasets.MNIST(DATA_ROOT, download=True, transform=transform, train=False)
     elif dataset == 'fashionmnist':
-        testset = datasets.FashionMNIST(os.path.join(DATA_ROOT, 'FashionMNIST'),
+        testset = datasets.FashionMNIST(DATA_ROOT, download=True,
                                         transform=transform, train=False)
     else:
         raise ValueError
