@@ -55,13 +55,27 @@ python main.py -data 'mnist' -name 'ResNet_default' -ldir '../results/mnist/pret
     python eval_sklearn.py --gen_data './../results/mnist/main/ResNet_default/gen_data.npz' -data 'mnist'
     ``` 
 
-- To evaluate downstream CNN classifier. The evaluation results will be saved to `'#dirname(gen_data.npz)#/eval/cnn'`) by default:
+- To evaluate downstream CNN classifiers. The evaluation results will be saved to `'#dirname(gen_data.npz)#/eval/cnn'`) by default:
     ```cnn
     cd evaluation
     python eval_cnn.py --gen_data './../results/mnist/main/ResNet_default/gen_data.npz' -data 'mnist'
     ``` 
   
-
+- To evaluate the MNIST Inception Score: 
+    ```IS
+    cd evaluation
+    ```
+    1. Train a classifier on real data. The model checkpoint will be saved to `'evaluation/models_IS/'` by default:
+        ```IS
+        python train_mnist_inception_score.py -data 'mnist'
+        ```
+    2. Load the pre-trained classifier and evaluate IS. The evaluation result will be saved to `'#dirname(gen_data.npz)#/eval/IS/'`) by default:
+        ```IS
+        python eval_mnist_inception_score.py -data 'mnist' --gen_data './../results/mnist/main/ResNet_default/gen_data.npz'
+        ```
+       
+- To evaluate the FID:
+    
 
 ## Pre-trained Models
 Pre-trained model checkpoints can be downloaded using the links below. The discriminators are obtained after the 
