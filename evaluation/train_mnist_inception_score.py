@@ -55,7 +55,7 @@ def check_args(args):
     :return:
     '''
     ## set up save_dir
-    save_dir = os.path.join(os.path.dirname(__file__), 'models_IS', args.dataset, args.exp_name)
+    save_dir = os.path.join(os.path.dirname(__file__), 'models', args.dataset, args.exp_name)
     mkdir(save_dir)
 
     ## store the parameters

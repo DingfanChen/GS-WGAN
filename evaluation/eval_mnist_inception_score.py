@@ -95,7 +95,7 @@ def main(args):
     if args.pretrain_dir is not None:
         pretrain_dir = args.pretrain_dir
     else:
-        pretrain_dir = os.path.join(os.path.dirname(__file__), 'models_IS', args.dataset, 'vgg11')
+        pretrain_dir = os.path.join(os.path.dirname(__file__), 'models', args.dataset, 'vgg11')
 
     ### eval
     if args.if_real:
