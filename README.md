@@ -49,11 +49,19 @@ python main.py -data 'mnist' -name 'ResNet_default' -ldir '../results/mnist/pret
     python privacy_analysis.py -data 'mnist' -name 'ResNet_default'
     ```
 
-- To evaluate downstream sklearn classifiers:
+- To evaluate downstream sklearn classifiers. The evaluation results will be saved to `'#dirname(gen_data.npz)#/eval/sklearn'`) by default:
     ```sklearn
     cd evaluation
-    python eval_sklearn.py --gen_data './../results/mnist/main/ResNet_default/gen_data.npz' -data 'mnist' -name 'ResNet_default'
+    python eval_sklearn.py --gen_data './../results/mnist/main/ResNet_default/gen_data.npz' -data 'mnist'
     ``` 
+
+- To evaluate downstream CNN classifier. The evaluation results will be saved to `'#dirname(gen_data.npz)#/eval/cnn'`) by default:
+    ```cnn
+    cd evaluation
+    python eval_cnn.py --gen_data './../results/mnist/main/ResNet_default/gen_data.npz' -data 'mnist'
+    ``` 
+  
+
 
 ## Pre-trained Models
 Pre-trained model checkpoints can be downloaded using the links below. The discriminators are obtained after the 

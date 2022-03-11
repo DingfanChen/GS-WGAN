@@ -30,8 +30,8 @@ def parse_arguments():
     parser.add_argument('--gen_data', type=str,
                         default='./../results/mnist/main/ResNet_default/gen_data.npz',
                         help='path of file that store the generated data')
-    parser.add_argument('--exp_name', '-name', type=str,
-                        help='output folder name; will be automatically extracted if not specified')
+    parser.add_argument('--save_dir', type=str,
+                        help='output folder name; will be automatically save to the folder of gen_data if not specified')
     parser.add_argument('--dataset', '-data', type=str, default='mnist', choices=['mnist', 'fashionmnist'],
                         help='dataset name')
     parser.add_argument('--if_print_conf_mat', action='store_true', default=False,
@@ -79,14 +79,11 @@ def vis_data(samples, save_name, save_dir):
 ##########################################################################
 def main(args):
     dataset = args.dataset
-    if args.exp_name is not None:
-        save_dir = os.path.join(RESULT_DIR, 'eval', args.dataset, args.exp_name)
+    if args.save_dir is not None:
+        save_dir = os.path.join(args.save_dir)
     else:
-        ## set up the output folder based on the extracted exp_name
-        start_idx = args.gen_data.rfind(args.dataset)
-        end_idx = args.gen_data.rfind('gen_data')
-        save_name = args.gen_data[start_idx:end_idx].replace('main/', '')
-        save_dir = os.path.join(RESULT_DIR, 'eval', save_name)
+        ## set up the output folder based on the extracted path
+        save_dir = os.path.join(os.path.dirname(args.gen_data), 'eval', 'sklearn')
     mkdir(save_dir)
 
     ### set up logger

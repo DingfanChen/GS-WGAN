@@ -2,3 +2,4 @@ matplotlib
 autodp
 scikit-learn
 xgboost
+progress
