@@ -51,14 +51,14 @@ python main.py -data 'mnist' -name 'ResNet_default' -ldir '../results/mnist/pret
 
 #### Utility
 - To evaluate downstream sklearn classifiers: \
-The evaluation results will be saved to `'#dirname(gen_data.npz)#/eval/sklearn'`) by default.
+The evaluation results will be saved to `'#dirname(gen_data.npz)#/eval/sklearn'` by default.
     ```sklearn
     cd evaluation
     python eval_sklearn.py --gen_data './../results/mnist/main/ResNet_default/gen_data.npz' -data 'mnist'
     ``` 
 
 - To evaluate downstream CNN classifiers: \
-The evaluation results will be saved to `'#dirname(gen_data.npz)#/eval/cnn'`) by default:
+The evaluation results will be saved to `'#dirname(gen_data.npz)#/eval/cnn'` by default:
     ```cnn
     cd evaluation
     python eval_cnn.py --gen_data './../results/mnist/main/ResNet_default/gen_data.npz' -data 'mnist'
@@ -68,17 +68,17 @@ The evaluation results will be saved to `'#dirname(gen_data.npz)#/eval/cnn'`) by
     ```IS
     cd evaluation
     ```
-    1. Train a classifier on real data. The model checkpoint will be saved to `'evaluation/models/'` by default:
+    1. Train a classifier on real data. The model will be saved to `'evaluation/models/'` by default:
         ```IS
         python train_mnist_inception_score.py -data 'mnist'
         ```
-    2. Load the pre-trained classifier and evaluate IS. The evaluation result will be saved to `'#dirname(gen_data.npz)#/eval/IS/'`) by default:
+    2. Load the pre-trained classifier and evaluate IS. The evaluation result will be saved to `'#dirname(gen_data.npz)#/eval/IS/'` by default:
         ```IS
         python eval_mnist_inception_score.py -data 'mnist' --gen_data './../results/mnist/main/ResNet_default/gen_data.npz'
         ```
        
 - To evaluate the FID (requires installing [TensorFlow](https://www.tensorflow.org/): \
-    The evaluation results will be saved to `'#dirname(gen_data.npz)#/eval/FID/'`) by default.
+    The evaluation results will be saved to `'#dirname(gen_data.npz)#/eval/FID/'` by default.
     ```FID
     cd evaluation
     python eval_fid.py -data 'mnist' --gen_data './../results/mnist/main/ResNet_default/gen_data.npz' 
